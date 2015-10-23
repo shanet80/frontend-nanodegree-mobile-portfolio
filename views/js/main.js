@@ -529,7 +529,7 @@ function updatePositions() {
   }
 
   for (var i =0; i < items.length; i++) {
-    items[i].style.left = items[i].basicLeft + 100 * phase[1%5] + 'px';
+    items[i].style.left = items[i].basicLeft + 100 * phase[i%5] + 'px';
   }
 
 
@@ -551,15 +551,19 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 30; i++) {
-    var elem = document.createElement('img');
+  //FIX: move elem and document query out of for loop so it is not created in each iteration
+  var elem;
+  var movingPizzas = document.getElementById('movingPizzas1');
+
+  for (var i = 0; i < 48; i++) {
+    elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+    movingPizzas.appendChild(elem);
   }
   updatePositions();
 });
